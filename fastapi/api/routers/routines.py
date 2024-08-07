@@ -6,10 +6,8 @@ from api.models import Workout, Routine
 from api.deps import db_dependency, user_dependency
 
 
-router = APIRouter(
-    prefix='/routines',
-    tags=['routines']
-)
+router = APIRouter(prefix="/routines", tags=["routines"])
+
 
 class RoutineBase(BaseModel):
     name: str
@@ -20,17 +18,22 @@ class RoutineCreate(RoutineBase):
     workouts: list[int] = []
 
 
-@router.get('/')
+@router.get("/")
 def get_routines(db: db_dependency, user: user_dependency):
-    return db.query(Routine).options(joinedload(Routine.workouts)).filter(Routine.user_id == user.get('id')).all()
+    return (
+        db.query(Routine)
+        .options(joinedload(Routine.workouts))
+        .filter(Routine.user_id == user.get("id"))
+        .all()
+    )
 
 
-@router.post('/')
+@router.post("/")
 def create_routine(db: db_dependency, user: user_dependency, routine: RoutineCreate):
     db_routine = Routine(
         name=routine.name,
         description=routine.description,
-        user_id=user.get('id'),
+        user_id=user.get("id"),
     )
     for workout_id in routine.workouts:
         workout = db.query(Workout).filter(Workout.id == workout_id).first()
@@ -39,17 +42,19 @@ def create_routine(db: db_dependency, user: user_dependency, routine: RoutineCre
     db.add(db_routine)
     db.commit()
     db.refresh(db_routine)
-    db_routines = db.query(Routine).options(joinedload(Routine.workouts)).filter(Routine.id == db_routine.id).first()
+    db_routines = (
+        db.query(Routine)
+        .options(joinedload(Routine.workouts))
+        .filter(Routine.id == db_routine.id)
+        .first()
+    )
     return db_routines
 
 
-@router.delete('/')
+@router.delete("/")
 def delete_routine(db: db_dependency, user: user_dependency, routine_id: int):
     db_routine = db.query(Routine).filter(Routine.id == routine_id).first()
     if db_routine:
         db.delete(db_routine)
         db.commit()
     return db_routine
-
-
-
