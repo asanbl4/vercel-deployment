@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routers import auth
+from api.routers import auth, workouts
 
 from api.database import Base, engine
 
@@ -23,3 +23,4 @@ async def root():
 
 
 app.include_router(router=auth.router)
+app.include_router(router=workouts.router)
