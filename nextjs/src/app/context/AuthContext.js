@@ -19,7 +19,7 @@ export const AuthProvider = ({ children }) => {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             });
             axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.access_token}`;
-            window.localStorage.setItem('token', response.data.access_token);
+            localStorage.setItem('token', response.data.access_token);
             setUser(response.data);
             router.push('/');
         } catch (error) {
