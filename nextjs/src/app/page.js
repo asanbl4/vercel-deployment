@@ -22,10 +22,10 @@ const Home = () => {
       try {
         const token = localStorage.getItem('token'); 
         const [workoutsResponse, routinesResponse] = await Promise.all([
-          axios.get('http://localhost:8000/workouts/workouts', {
+          axios.get('https://fastapi-beige.vercel.app/workouts/workouts', {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get('http://localhost:8000/routines', {
+          axios.get('https://fastapi-beige.vercel.app/routines', {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -43,7 +43,7 @@ const Home = () => {
   const handleCreateWorkout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/workouts', {
+      const response = await axios.post('https://fastapi-beige.vercel.app/workouts', {
         name: workoutName,
         description: workoutDescription,
       });
@@ -58,7 +58,7 @@ const Home = () => {
   const handleCreateRoutine = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/routines', {
+      const response = await axios.post('https://fastapi-beige.vercel.app/routines', {
         name: routineName,
         description: routineDescription,
         workouts: selectedWorkouts,
