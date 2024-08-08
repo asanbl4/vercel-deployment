@@ -15,30 +15,36 @@ const Home = () => {
   const [routineDescription, setRoutineDescription] = useState('');
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
 
-  const token = localStorage.getItem('token');
+  const [token, setToken] = useState(null);
 
   useEffect(() => {
-    const fetchWorkoutsAndRoutines = async () => {
-      try {
-        const token = localStorage.getItem('token'); 
-        const [workoutsResponse, routinesResponse] = await Promise.all([
-          axios.get('https://fastapi-beige.vercel.app/workouts/workouts', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-          axios.get('https://fastapi-beige.vercel.app/routines', {
-            headers: { Authorization: `Bearer ${token}` },
-          }),
-        ]);
-
-        setWorkouts(workoutsResponse.data);
-        setRoutines(routinesResponse.data);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchWorkoutsAndRoutines();
+    const savedToken = window.localStorage.getItem("token");
+    setToken(savedToken);
   }, []);
+
+  useEffect(() => {
+    if (token) {
+      const fetchWorkoutsAndRoutines = async () => {
+        try {
+          const [workoutsResponse, routinesResponse] = await Promise.all([
+            axios.get('https://fastapi-beige.vercel.app/workouts/workouts', {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+            axios.get('https://fastapi-beige.vercel.app/routines', {
+              headers: { Authorization: `Bearer ${token}` },
+            }),
+          ]);
+
+          setWorkouts(workoutsResponse.data);
+          setRoutines(routinesResponse.data);
+        } catch (error) {
+          console.error('Failed to fetch data:', error);
+        }
+      };
+
+      fetchWorkoutsAndRoutines();
+    }
+  }, [token]);
 
   const handleCreateWorkout = async (e) => {
     e.preventDefault();
