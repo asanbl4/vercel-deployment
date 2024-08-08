@@ -15,7 +15,7 @@ const Home = () => {
   const [routineDescription, setRoutineDescription] = useState('');
   const [selectedWorkouts, setSelectedWorkouts] = useState([]);
 
-  const token = localStorage.getItem('token');
+  const token = window.localStorage.getItem('token');
 
   useEffect(() => {
     const fetchWorkoutsAndRoutines = async () => {
