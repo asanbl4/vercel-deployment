@@ -1,0 +1,13 @@
+version: '3.8'
+services:
+  core_api:
+    build: .
+    container_name: "core-api-container"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./api/:/api
+      - ./workout_app.db:/workout_app.db
+  
+volumes:
+  workout_app_db:
