@@ -1,3 +1,5 @@
 .vercel
 vercel.json
+.ruff_cache
+*.http
 

@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
       formData.append('username', username);
       formData.append('password', password);
 
-      const response = await axios.post('https://fastapi-beige.vercel.app/auth/token', formData, {
+      const response = await axios.post('https://fastapi-backend-deployment-production.up.railway.app/auth/token', formData, {
         headers: {'Content-Type': 'application/x-www-form-urlencoded'},
       });
 

@@ -27,10 +27,10 @@ const Home = () => {
       const fetchWorkoutsAndRoutines = async () => {
         try {
           const [workoutsResponse, routinesResponse] = await Promise.all([
-            axios.get('https://fastapi-beige.vercel.app/workouts/workouts', {
+            axios.get('https://fastapi-backend-deployment-production.up.railway.app/workouts/workouts', {
               headers: { Authorization: `Bearer ${token}` },
             }),
-            axios.get('https://fastapi-beige.vercel.app/routines', {
+            axios.get('https://fastapi-backend-deployment-production.up.railway.app/routines', {
               headers: { Authorization: `Bearer ${token}` },
             }),
           ]);
@@ -49,7 +49,7 @@ const Home = () => {
   const handleCreateWorkout = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://fastapi-beige.vercel.app/workouts', {
+      const response = await axios.post('https://fastapi-backend-deployment-production.up.railway.app/workouts', {
         name: workoutName,
         description: workoutDescription,
       });
@@ -64,7 +64,7 @@ const Home = () => {
   const handleCreateRoutine = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('https://fastapi-beige.vercel.app/routines', {
+      const response = await axios.post('https://fastapi-backend-deployment-production.up.railway.app/routines', {
         name: routineName,
         description: routineDescription,
         workouts: selectedWorkouts,

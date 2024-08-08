@@ -19,7 +19,7 @@ const Login = () => {
     const handleRegister = async (e) => {
       e.preventDefault();
       try {
-        const response = await axios.post('https://fastapi-beige.vercel.app/auth', {
+        const response = await axios.post('https://fastapi-backend-deployment-production.up.railway.app/auth', {
           username: registerUsername,
           password: registerPassword,
         });
